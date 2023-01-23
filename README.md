@@ -1,4 +1,4 @@
-# Google-Drive-FIle-Names-Extract
+# Google-Drive-File-Names-Extract
 
 A Google Apps Script which looks insider of a folder on Google Drive and extracts all the names of the files inside.
 
