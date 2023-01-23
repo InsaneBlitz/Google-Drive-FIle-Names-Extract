@@ -4,4 +4,4 @@ A Google Apps Script which looks insider of a folder on Google Drive and extract
 
 This script is being pulled from Google Apps Script and also being pushed using CLASP.
 
-The appscript is set to only use the Drive and Sheets services.
+The app script is set to only use the Drive and Sheets services.
