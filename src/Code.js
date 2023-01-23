@@ -19,7 +19,10 @@ function fetchFolderContents() {
   while(contents.hasNext()) {
     file = contents.next();
     name = file.getName();
+    // Fixes the name by slicing everything after the '.'
+    // last ensures it is the last '.' incase the name of the file already has a '.'
+    nameFixed = name.slice(0, name.lastIndexOf("."));
     link = file.getUrl();
-    sheet.appendRow([name, link]);
+    sheet.appendRow([nameFixed, link]);
   }
 };
