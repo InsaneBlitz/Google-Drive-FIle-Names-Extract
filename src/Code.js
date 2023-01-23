@@ -10,12 +10,16 @@ function fetchFolderContents() {
   var sheet = SpreadsheetApp.getActiveSheet();
   sheet.clear();
 
-  // Stores current file name before being appended to sheet
+  // Variables to hold data from current file selected
   var file;
+  var name;
+  var link;
 
   // Loop that runs until end of folder contents
   while(contents.hasNext()) {
     file = contents.next();
-    sheet.appendRow([file.getName()]);
+    name = file.getName();
+    link = file.getUrl();
+    sheet.appendRow([name, link]);
   }
 };
