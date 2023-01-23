@@ -28,4 +28,5 @@ function fetchFolderContents() {
     file = contents.next();
     sheet.appendRow([file.getName()])
   }
+  // Test 123
 };
