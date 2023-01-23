@@ -1,13 +1,3 @@
-// Log the name of every file in the user's Drive.
-function logNamesOfFiles() {
-  var files = DriveApp.getFiles();
-
-  while (files.hasNext()) {
-    var file = files.next();
-    Logger.log(file.getName());
-  }
-};
-
 // Fetches every file name in a folder and outputs it to a spreadsheet
 function fetchFolderContents() {
   // Looker Photo Uploads ID
@@ -26,7 +16,6 @@ function fetchFolderContents() {
   // Loop that runs until end of folder contents
   while(contents.hasNext()) {
     file = contents.next();
-    sheet.appendRow([file.getName()])
+    sheet.appendRow([file.getName()]);
   }
-  // Test 123
 };
