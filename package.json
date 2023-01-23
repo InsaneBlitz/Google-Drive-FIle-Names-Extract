@@ -1,0 +1,11 @@
+{
+  "name": "google-drive-photos-script",
+  "version": "1.0.0",
+  "description": "Retrives file names from a folder in Google Drive.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexis Ramirez",
+  "license": "ISC"
+}
