@@ -6,24 +6,36 @@ function fetchFolderContents() {
   // Method to grab file names from a folder
   var contents = folderId.getFiles();
 
-  // Selects active sheet to output to, and clears it
-  var sheet = SpreadsheetApp.getActiveSheet();
-  sheet.clear();
+  // Selects Sheet by Name and then clears a specific range.
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Script");
+  var lastRow = sheet.getLastRow();
+  // Row, Column, Num Rows, Num Columns
+  var range = sheet.getRange(2, 1, lastRow, 5)
+  range.clear();
 
   // Variables to hold data from current file selected
   var file;
   var name;
   var link;
 
+  // Start at Row 2 and Increment for the total amount of data in the while loop
+  var row = 2;
+
   // Loop that runs until end of folder contents
   while(contents.hasNext()) {
     file = contents.next();
     name = file.getName();
-    // Fixes the name by slicing everything after the '.'
-    // last ensures it is the last '.' incase the name of the file already has a '.'
+      var fileLink = [];
+    // Fixes the name by slicing everything after the '.' and '_'
+    // last ensures it is the last '.' incase the name of the file already has a '.' or '_'
     nameFixed = name.slice(0, name.lastIndexOf("."));
+    nameFixed = nameFixed.slice(0, nameFixed.lastIndexOf('_'));
     link = file.getUrl();
-    sheet.appendRow([nameFixed, link]);
+    fileLink = [nameFixed, link];
+    //sheet.appendRow([nameFixed, link]);
+    sheet.getRange(row, 1, 1, fileLink.length).setValues([fileLink]);
+    row++;
+    console.log("Array:",fileLink);
   }
 };
 
@@ -50,12 +62,6 @@ function fixDuplicates() {
     // If there is a duplicate, add links
     else {
       linksByVin[currentVin] += currentUrl;
-    }
-
-    // Converts linksByVin into a 2D array with a shape of 1x4. For the 4 possible links
-    var newLinksByVin = [];
-    while(linksByVin.length) {
-      newLinksByVin.push(linksByVin.splice(0,4));
     }
 
     // Prepare for output
