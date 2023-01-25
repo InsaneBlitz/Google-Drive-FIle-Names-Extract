@@ -27,7 +27,7 @@ function fetchFolderContents() {
   }
 };
 
-// Function to find duplicates in a column and combine them in to one inlcuding the links
+// Function to find duplicates in a column and combine them in to one including the links
 function fixDuplicates() {
   // Variables to select active sheet, its range, and data.
   var sheet = SpreadsheetApp.getActiveSheet();
@@ -43,18 +43,19 @@ function fixDuplicates() {
     var currentVin = col[0];
     var currentUrl = col[1];
 
-    // Empty Vin
-    //if(!currentVin.trim()) {
-      //continue;
-    //}
-
     // Saves first instance of a VIN to the array.
     if(!linksByVin[currentVin]) {
-      linksByVin[currentVin] = Number(currentUrl);
+      linksByVin[currentVin] = currentUrl;
     }
     // If there is a duplicate, add links
     else {
       linksByVin[currentVin] += currentUrl;
+    }
+
+    // Converts linksByVin into a 2D array with a shape of 1x4. For the 4 possible links
+    var newLinksByVin = [];
+    while(linksByVin.length) {
+      newLinksByVin.push(linksByVin.splice(0,4));
     }
 
     // Prepare for output
@@ -64,6 +65,8 @@ function fixDuplicates() {
 
     // Clears old data
     dataRange.clearContent();
+
+    console.log(linksByVin);
 
     // Write data
     var newDataRange = sheet.getRange(2, 1, outputData.length, 2);
