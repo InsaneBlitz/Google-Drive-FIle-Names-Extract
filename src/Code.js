@@ -35,14 +35,13 @@ function fetchFolderContents() {
     //sheet.appendRow([nameFixed, link]);
     sheet.getRange(row, 1, 1, fileLink.length).setValues([fileLink]);
     row++;
-    console.log("Array:",fileLink);
   }
 };
 
 // Function to find duplicates in a column and combine them in to one including the links
 function fixDuplicates() {
   // Variables to select active sheet, its range, and data.
-  var sheet = SpreadsheetApp.getActiveSheet();
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Script");
   var lastRow = sheet.getLastRow();
   var dataRange = sheet.getRange(2, 1, lastRow - 1, 2);
   var data = dataRange.getValues();
@@ -61,7 +60,7 @@ function fixDuplicates() {
     }
     // If there is a duplicate, add links
     else {
-      linksByVin[currentVin] += currentUrl;
+      linksByVin[currentVin] += ', ' + currentUrl;
     }
 
     // Prepare for output
@@ -72,11 +71,12 @@ function fixDuplicates() {
     // Clears old data
     dataRange.clearContent();
 
-    console.log(linksByVin);
-
     // Write data
     var newDataRange = sheet.getRange(2, 1, outputData.length, 2);
     newDataRange.setValues(outputData);
-    // Test
+
+    // Splits the outputted URLs into separate columns by looking at the ", ".
+    var rangeFix = sheet.getRange("B2:B" + lastRow);
+    rangeFix.splitTextToColumns(", ");
   }
 };
