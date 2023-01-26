@@ -35,7 +35,6 @@ function fetchFolderContents() {
     //sheet.appendRow([nameFixed, link]);
     sheet.getRange(row, 1, 1, fileLink.length).setValues([fileLink]);
     row++;
-    console.log("Array:",fileLink);
   }
 };
 
@@ -76,6 +75,7 @@ function fixDuplicates() {
     var newDataRange = sheet.getRange(2, 1, outputData.length, 2);
     newDataRange.setValues(outputData);
 
+    // Splits the outputted URLs into separate columns by looking at the ", ".
     var rangeFix = sheet.getRange("B2:B" + lastRow);
     rangeFix.splitTextToColumns(", ");
   }
